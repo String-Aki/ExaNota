@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExaNota — Unified Workspace</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="manifest" href="/manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <meta name="theme-color" content="#0f172a">
+</head>
+<body>
+    <div class="app-shell">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="/favicon.png" alt="ExaNota" class="logo">
+                <h1>ExaNota</h1>
+                <p>Premium Automator</p>
+            </div>
+
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="notes">
+                    <span class="icon">📓</span> Notes Scripter
+                </button>
+                <button class="mode-btn" data-mode="exam">
+                    <span class="icon">📝</span> Exam Setter
+                </button>
+            </div>
+
+            <div class="settings-group">
+                <h3>Global Settings</h3>
+                <div class="form-item">
+                    <label>File Name</label>
+                    <div class="input-row">
+                        <input type="text" id="fileName" placeholder="filename_suggestion">
+                        <span class="ext">.docx</span>
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Custom Template</label>
+                    <div class="upload-stub" id="templateTrigger">
+                        <span id="templateStatus">Default Styles</span>
+                        <input type="file" id="templateFile" accept=".docx" hidden>
+                    </div>
+                </div>
+
+                <div class="mode-specific" id="examSettings" style="display: none;">
+                    <h3>Exam Options</h3>
+                    <label class="toggle">
+                        <span>Tamil Lettering</span>
+                        <input type="checkbox" id="tamilToggle" checked>
+                        <div class="slider"></div>
+                    </label>
+                    <label class="toggle">
+                        <span>Teacher's Copy</span>
+                        <input type="checkbox" id="teacherToggle">
+                        <div class="slider"></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="ai-card">
+                <div class="ai-badge">AI Integration</div>
+                <h4>Under Development</h4>
+                <p>LLM automation and auto-tagging features are coming soon.</p>
+                <div class="progress-bar"><div class="fill"></div></div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="workspace">
+            <div class="editor-header">
+                <h2 id="modeTitle">Notes Scripter</h2>
+                <div class="actions">
+                    <button id="generateBtn" class="btn primary">
+                        <span class="btn-text">Build Document</span>
+                        <span class="btn-icon">⚡</span>
+                    </button>
+                    <button id="clearBtn" class="btn secondary">
+                        <span class="btn-text">Clear Workspace</span>
+                        <span class="btn-icon">🗑️</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="editor-container">
+                <textarea id="dictInput" placeholder="Paste your Python dictionary here..."></textarea>
+                <div class="editor-overlay" id="editorOverlay">
+                    <div class="spinner"></div>
+                    <p>Parsing Title...</p>
+                </div>
+            </div>
+
+            <div id="statusMsg" class="status-overlay hidden">
+                <div class="status-content">
+                    <div class="status-icon"></div>
+                    <div class="status-text">
+                        <h4 id="statusTitle"></h4>
+                        <p id="statusDesc"></p>
+                    </div>
+                    <button class="close-status" id="closeStatus">×</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+</html>
