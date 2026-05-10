@@ -1,0 +1,66 @@
+Give me the notes as a Python dictionary in this
+exact structure — plain text only, no markdown code fences.
+
+There are SIX item types allowed inside the "bullets" list:
+
+  1. Regular bullet:
+     {"type": "bullet", "text": "Tamil text (English term)", "sub_bullets": ["எடுத்துக்காட்டு: example"]}
+
+  2. Bullet with NO sub-examples (leave list empty):
+     {"type": "bullet", "text": "Tamil text (English term)", "sub_bullets": []}
+
+  3. Numbered item (auto-numbered list, resets at each sub_heading or section):
+     {"type": "numbered", "text": "Tamil text (English term)", "sub_bullets": ["எடுத்துக்காட்டு: example"]}
+
+  4. Sub-heading (bold label inside a section, slightly larger than body):
+     {"type": "sub_heading", "text": "Tamil Sub-heading (English Sub-heading)"}
+
+  5. Note / extra info block (italic, indented, grey — for "Extra" or side notes):
+     {"type": "note", "text": "Extra explanation text here."}
+
+  6. Table (comparison or summary table with a header row and data rows):
+     {"type": "table",
+      "headers": ["Column 1", "Column 2", "Column 3"],
+      "rows": [
+        ["Row 1 Col 1", "Row 1 Col 2", "Row 1 Col 3"],
+        ["Row 2 Col 1", "Row 2 Col 2", "Row 2 Col 3"]
+      ]}
+     - Use this for comparison tables (e.g. oppeettu attavanai)
+     - Headers are bold and shaded; rows alternate for readability
+     - Columns are evenly distributed across the full page width
+
+Full structure:
+
+{
+  "title": "Tamil Title (English Title)",
+  "sections": [
+    {
+      "heading": "1. Tamil Section Heading (English Heading)",
+      "bullets": [
+        {"type": "sub_heading", "text": "Tamil Sub-heading (English Sub-heading)"},
+        {"type": "bullet", "text": "Main point in Tamil (English term)", "sub_bullets": [
+            "எடுத்துக்காட்டு: Example one",
+            "எடுத்துக்காட்டு: Example two"
+        ]},
+        {"type": "bullet", "text": "Another point with no examples", "sub_bullets": []},
+        {"type": "numbered", "text": "First numbered step (English term)", "sub_bullets": []},
+        {"type": "numbered", "text": "Second numbered step (English term)", "sub_bullets": []},
+        {"type": "table",
+         "headers": ["Col 1", "Col 2", "Col 3"],
+         "rows": [
+           ["Value A", "Explanation A", "Example A"],
+           ["Value B", "Explanation B", "Example B"]
+         ]},
+        {"type": "note", "text": "Extra detail or side note goes here."}
+      ]
+    }
+  ]
+}
+
+Rules:
+- Title: Tamil first, English in parentheses
+- Section headings: Numbered 1. 2. 3. ..., Tamil + English in parentheses
+- Use sub_heading for bold labelled groups inside a section (e.g. "பொதுவான பண்புகள் (General Characteristics)")
+- Use table for any comparison or summary — never use bullets to fake a table
+- Use note for "Extra" or sidebar explanations at the end of a section
+- Minimum 3 sections; minimum 3 bullets per section
